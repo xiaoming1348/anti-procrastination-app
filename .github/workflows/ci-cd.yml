@@ -60,25 +60,4 @@ jobs:
       with:
         context: ./server
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:latest
-
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Install kubectl
-      uses: azure/setup-kubectl@v3
-      
-    - name: Set up kubeconfig
-      run: |
-        echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-        export KUBECONFIG=kubeconfig.yaml
-        
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f k8s/
-        kubectl set image deployment/frontend frontend=${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:latest
-        kubectl set image deployment/backend backend=${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:latest 
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:latest 
