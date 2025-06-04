@@ -34,7 +34,7 @@ A web application that helps users overcome procrastination by implementing a mo
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/xiaoming1348/anti-procrastination-app
 cd anti-procrastination-app
 ```
 
