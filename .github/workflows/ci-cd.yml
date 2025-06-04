@@ -47,6 +47,12 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+        registry: docker.io
+        
+    - name: Debug Docker Hub credentials
+      run: |
+        echo "Docker Hub username: ${{ secrets.DOCKERHUB_USERNAME }}"
+        echo "Docker Hub token length: ${#DOCKERHUB_TOKEN}"
         
     - name: Build and push frontend
       uses: docker/build-push-action@v4
@@ -55,8 +61,8 @@ jobs:
         file: ./src/Dockerfile
         push: true
         tags: |
-          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:${{ github.sha }}
+          docker.io/${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:latest
+          docker.io/${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:${{ github.sha }}
         build-args: |
           NODE_ENV=production
         
@@ -67,5 +73,5 @@ jobs:
         file: ./server/Dockerfile
         push: true
         tags: |
-          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:${{ github.sha }} 
+          docker.io/${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:latest
+          docker.io/${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:${{ github.sha }} 
