@@ -54,7 +54,9 @@ jobs:
         context: .
         file: ./src/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:latest
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-frontend:${{ github.sha }}
         build-args: |
           NODE_ENV=production
         
@@ -64,4 +66,6 @@ jobs:
         context: ./server
         file: ./server/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:latest 
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/anti-procrastination-backend:${{ github.sha }} 
